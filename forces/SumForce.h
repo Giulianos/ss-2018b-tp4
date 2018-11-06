@@ -2,25 +2,23 @@
 // Created by Giuliano Scaglioni on 05/11/2018.
 //
 
-#ifndef SS_TP4_GFORCE_H
-#define SS_TP4_GFORCE_H
+#ifndef SS_TP4_SUMFORCE_H
+#define SS_TP4_SUMFORCE_H
 
 #include "../types/Body.h"
 #include "Force.h"
+#include <list>
 
-class GForce : public Force
+class SumForce : public Force
 {
-  static constexpr double G = 6.67408E-11;
-
-  Body b1;
-  Body b2;
+  std::list<Force*> forces;
   double fx;
   double fy;
 
 public:
-  GForce(const Body& b1, const Body& b2);
+  SumForce(const std::list<Force*>& forces);
 
-  virtual ~GForce();
+  virtual ~SumForce();
 
   double get_force_x() override;
 
@@ -29,4 +27,4 @@ public:
   void evaluate() override;
 };
 
-#endif // SS_TP4_GFORCE_H
+#endif // SS_TP4_SUMFORCE_H
