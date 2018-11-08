@@ -24,11 +24,11 @@ LaunchSetup::calculate_location(const Body& earth)
   double ex = rx / r;
   double ey = ry / r;
 
-  x = rx + altitude * ex;
-  y = ry + altitude * ey;
+  x = rx + (altitude + earth.get_radius()) * ex;
+  y = ry + (altitude + earth.get_radius()) * ey;
 
-  vx = -ey * v0 + earth.get_vy();
-  vy = ex * v0 + earth.get_vx();
+  vx = -ey * v0 + earth.get_vx();
+  vy = ex * v0 + earth.get_vy();
 }
 
 double

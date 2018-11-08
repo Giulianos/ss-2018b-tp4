@@ -65,6 +65,8 @@ Space::simulate_step(double dt)
     }
     Force* applied_force = new SumForce(forces);
     integrator->integrate(*it, applied_force, dt);
+    for (Force* ptr : forces)
+      delete ptr;
     delete applied_force;
   }
 
@@ -86,7 +88,13 @@ Space::print_ovito(FILE* file) const
   std::list<Body>::const_iterator it;
 
   for (it = bodies.cbegin(); it != bodies.end(); it++) {
-    fprintf(
-      output, "%lf\t%lf\t%lf\n", it->get_x(), it->get_y(), it->get_radius());
+    fprintf(output,
+            "%lf\t%lf\t%lf\t%lf\t%lf\t%lf\n",
+            it->get_x(),
+            it->get_y(),
+            it->get_vx(),
+            it->get_vy(),
+            it->get_radius(),
+            it->get_mass());
   }
 }
