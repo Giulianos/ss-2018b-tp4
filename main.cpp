@@ -4,6 +4,7 @@
 #include "types/Space.h"
 #include "utils/LaunchSetup.h"
 #include "utils/ParamsManager.h"
+#include "observers/OvitoObserver.h"
 #include <iostream>
 
 int
@@ -27,25 +28,25 @@ main(int argc, char* argv[])
   /** Create launch setup */
   LaunchSetup launch_setup(initial_speed, voyager_altitude);
 
+  /** Create observers */
+  Observer * ovito_observer = new OvitoObserver(60*60*24, "out.xyz");
+
   /** Create space */
   Space space(launch_setup);
 
+  /** Add observers to space */
+  space.add_observer(ovito_observer);
+
   /** Initialize counters */
   double time = 0;
-  double time_to_print = 0;
   int progress = 0;
   while (time < total_time) {
     if ((int)(time * 100.0 / total_time) > progress) {
       progress = (int)(time * 100.0 / total_time);
       fprintf(stderr, "Progress: %d%%\n", progress);
     }
-    if (time_to_print < 0) {
-      space.print_ovito(stdout);
-      time_to_print = 60.0 * 60 * 24;
-    }
     space.simulate_step(dt);
     time += dt;
-    time_to_print -= dt;
   }
 
   return 0;

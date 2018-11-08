@@ -46,6 +46,8 @@ Space::Space(LaunchSetup& launch_setup)
                          launch_setup.get_vy(),
                          0.0,
                          721.9));
+
+  current_time = 0;
 }
 
 void
@@ -74,27 +76,19 @@ Space::simulate_step(double dt)
   for (it = bodies.begin(); it != bodies.end(); it++) {
     it->update();
   }
+
+  current_time += dt;
+
+  /** Let observers observe */
+  for(Observer * obs : observers) {
+    obs->inject_data(&bodies, current_time);
+    obs->observe();
+  }
 }
 
-void
-Space::print_ovito(FILE* file) const
-{
-  FILE* output = file;
+void Space::add_observer(Observer * observer) {
+  observers.push_front(observer);
+}
 
-  /** Print bodies quantity and empty comment line */
-  fprintf(output, "%lu\n\n", bodies.size());
-
-  /** Print bodies states */
-  std::list<Body>::const_iterator it;
-
-  for (it = bodies.cbegin(); it != bodies.end(); it++) {
-    fprintf(output,
-            "%lf\t%lf\t%lf\t%lf\t%lf\t%lf\n",
-            it->get_x(),
-            it->get_y(),
-            it->get_vx(),
-            it->get_vy(),
-            it->get_radius(),
-            it->get_mass());
-  }
+void Space::end_simulation() {
 }
