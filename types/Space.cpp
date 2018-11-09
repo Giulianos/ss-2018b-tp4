@@ -11,6 +11,12 @@
 Space::Space(LaunchSetup& launch_setup)
   : launch_setup(launch_setup)
 {
+  Body earth = Body(1.443667096759952E+11,
+                    -4.358205294442200E+10,
+                    8.134925514034244E+03,
+                    2.840370427523522E+04,
+                    6371.01E+03,
+                    5.97219E+24);
   Body jupiter = Body(1.051808117769951E+11,
                       7.552752037839167E+11,
                       -1.310827390034170E+04,
@@ -23,12 +29,6 @@ Space::Space(LaunchSetup& launch_setup)
                      -7.592712627964003E+03,
                      58232E+03,
                      5.6834E+26);
-  Body earth = Body(1.443667096759952E+11,
-                    -4.358205294442200E+10,
-                    8.134925514034244E+03,
-                    2.840370427523522E+04,
-                    6371.01E+03,
-                    5.97219E+24);
   Body sun = Body(0.0, 0.0, 0.0, 0.0, 6.95700E+08, 1.9885E+30);
 
   bodies.push_front(earth);
@@ -91,4 +91,7 @@ void Space::add_observer(Observer * observer) {
 }
 
 void Space::end_simulation() {
+  for(Observer * obs : observers) {
+    obs->finalize_observer();
+  }
 }

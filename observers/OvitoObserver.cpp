@@ -4,12 +4,16 @@
 
 #include "OvitoObserver.h"
 
-void OvitoObserver::inject_data(const std::list<Body> * bodies, double current_time) {
+void
+OvitoObserver::inject_data(const std::list<Body>* bodies, double current_time)
+{
   OvitoObserver::bodies = bodies;
   OvitoObserver::current_time = current_time;
 }
 
-void OvitoObserver::observe() {
+void
+OvitoObserver::observe()
+{
   if (last_observed_time + dt < current_time) {
     last_observed_time = current_time;
 
@@ -29,9 +33,15 @@ void OvitoObserver::observe() {
   }
 }
 
-OvitoObserver::OvitoObserver(double dt, const std::string& filename) : dt(dt) {
+OvitoObserver::OvitoObserver(double dt, const std::string& filename)
+  : dt(dt)
+{
   last_observed_time = 0;
   out_file = fopen(filename.c_str(), "w");
 }
 
-
+void
+OvitoObserver::finalize_observer()
+{
+  fclose(out_file);
+}
