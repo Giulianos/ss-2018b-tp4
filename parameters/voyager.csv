@@ -1,4 +1,6 @@
-v0=16.4105E3
+v0=16E3
 L=3000E3
 dt=60
 total_time=94608000
+min_jupiter_dist_file=min_distance.csv
+ovito_output_filename=ovito.xyz
