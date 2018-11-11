@@ -4,7 +4,7 @@ el proyecto.
 
 ## Compilacion
 Se debe contar con CMake > 3.7 (en macOS: `brew install cmake`, en debian-like: `sudo apt install cmake`) y un compilador
-de `C++ 11`.
+de `C++ 11` (en macOS basta con tener las devtools de xcode, en debian-like `sudo apt install g++`).
 Para compilar el proyecto basta correr:
 
 ```bash

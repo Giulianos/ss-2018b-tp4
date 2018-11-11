@@ -8,8 +8,8 @@
 #include "../utils/LaunchSetup.h"
 #include <list>
 
-Space::Space(LaunchSetup& launch_setup)
-  : launch_setup(launch_setup)
+Space::Space(LaunchSetup& launch_setup, Integrator * integrator)
+  : launch_setup(launch_setup), integrator(integrator)
 {
   Body earth = Body(1.443667096759952E+11,
                     -4.358205294442200E+10,

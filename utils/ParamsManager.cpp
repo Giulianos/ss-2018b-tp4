@@ -16,15 +16,15 @@ ParamsManager::ParamsManager(std::string filename)
     std::string value =
       temp_line.substr(delimiter_position + 1, temp_line.size() - 1);
     params.insert(std::make_pair(key, value));
-    fprintf(stderr,
-            "Inserted parameter into map: {%s, %s}\n",
-            key.c_str(),
-            value.c_str());
   }
 }
 
 std::string
 ParamsManager::get(const std::string key) const
 {
-  return params.at(key);
+  try {
+    return params.at(key);
+  } catch (const std::out_of_range& oor) {
+    return "";
+  }
 }

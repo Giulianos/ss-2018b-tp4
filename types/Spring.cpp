@@ -10,11 +10,10 @@
 #include "../integrators/Verlet.h"
 #include "../integrators/GearPredictorCorrector.h"
 
-Spring::Spring()
+Spring::Spring(Integrator * integrator) : integrator(integrator)
 {
   hooke_force = new HookeForce(1e4, mass);
   damping_force = new DampingForce(100, mass);
-  integrator = new GearPredictorCorrector();
   current_time = 0;
 }
 

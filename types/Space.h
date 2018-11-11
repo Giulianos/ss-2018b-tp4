@@ -17,11 +17,11 @@ class Space
   std::list<Body> bodies;
   std::list<Observer*> observers;
   LaunchSetup launch_setup;
-  Integrator* integrator = new Beeman();
+  Integrator* integrator;
   double current_time;
 
 public:
-  Space(LaunchSetup& launch_setup);
+  Space(LaunchSetup& launch_setup, Integrator * integrator);
   void simulate_step(double dt);
   void add_observer(Observer * observer);
   void end_simulation();

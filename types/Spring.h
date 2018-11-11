@@ -21,7 +21,7 @@ class Spring {
     Force * hooke_force;
     Force * damping_force;
 public:
-    Spring();
+    Spring(Integrator * integrator);
     void simulate_step(double dt);
     void add_observer(Observer * observer);
     void end_simulation();
