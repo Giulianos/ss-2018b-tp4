@@ -5,13 +5,12 @@
 #ifndef SS_TP4_REALSPRINGSIMULATOR_H
 #define SS_TP4_REALSPRINGSIMULATOR_H
 
-
 #include "Simulator.h"
 
-class RealSpringSimulator : public Simulator {
+class RealSpringSimulator : public Simulator
+{
 public:
-    void run(ParamsManager &params) override;
+  void run(ParamsManager& params) override;
 };
 
-
-#endif //SS_TP4_REALSPRINGSIMULATOR_H
+#endif // SS_TP4_REALSPRINGSIMULATOR_H

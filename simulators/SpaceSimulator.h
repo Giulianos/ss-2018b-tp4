@@ -5,13 +5,12 @@
 #ifndef SS_TP4_SPACESIMULATOR_H
 #define SS_TP4_SPACESIMULATOR_H
 
-
 #include "Simulator.h"
 
-class SpaceSimulator : public Simulator {
+class SpaceSimulator : public Simulator
+{
 public:
-    void run(ParamsManager &params) override;
+  void run(ParamsManager& params) override;
 };
 
-
-#endif //SS_TP4_SPACESIMULATOR_H
+#endif // SS_TP4_SPACESIMULATOR_H

@@ -8,8 +8,9 @@
 #include "../utils/LaunchSetup.h"
 #include <list>
 
-Space::Space(LaunchSetup& launch_setup, Integrator * integrator)
-  : launch_setup(launch_setup), integrator(integrator)
+Space::Space(LaunchSetup& launch_setup, Integrator* integrator)
+  : launch_setup(launch_setup)
+  , integrator(integrator)
 {
   Body earth = Body(1.443667096759952E+11,
                     -4.358205294442200E+10,
@@ -80,18 +81,22 @@ Space::simulate_step(double dt)
   current_time += dt;
 
   /** Let observers observe */
-  for(Observer * obs : observers) {
+  for (Observer* obs : observers) {
     obs->inject_data(&bodies, current_time);
     obs->observe();
   }
 }
 
-void Space::add_observer(Observer * observer) {
+void
+Space::add_observer(Observer* observer)
+{
   observers.push_front(observer);
 }
 
-void Space::end_simulation() {
-  for(Observer * obs : observers) {
+void
+Space::end_simulation()
+{
+  for (Observer* obs : observers) {
     obs->finalize_observer();
   }
 }

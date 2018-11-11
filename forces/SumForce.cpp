@@ -22,7 +22,7 @@ SumForce::evaluate()
   fx = 0;
   fy = 0;
 
-  for (Force * f : forces) {
+  for (Force* f : forces) {
     f->evaluate();
     fx += f->get_force_x();
     fy += f->get_force_y();
@@ -37,11 +37,13 @@ SumForce::SumForce(const std::list<Force*>& forces)
 
 SumForce::~SumForce() {}
 
-void SumForce::evaluate(double x, double y, double vx, double vy) {
+void
+SumForce::evaluate(double x, double y, double vx, double vy)
+{
   fx = 0;
   fy = 0;
 
-  for (Force * f : forces) {
+  for (Force* f : forces) {
     f->evaluate(x, y, vx, vy);
     fx += f->get_force_x();
     fy += f->get_force_y();

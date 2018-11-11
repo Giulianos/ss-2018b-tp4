@@ -1,8 +1,8 @@
-#include "utils/ParamsManager.h"
-#include "simulators/Simulator.h"
-#include "simulators/SpringSimulator.h"
 #include "simulators/RealSpringSimulator.h"
+#include "simulators/Simulator.h"
 #include "simulators/SpaceSimulator.h"
+#include "simulators/SpringSimulator.h"
+#include "utils/ParamsManager.h"
 #include <iostream>
 
 int
@@ -18,11 +18,11 @@ main(int argc, char* argv[])
   ParamsManager params(argv[1]);
 
   /** Create simulator */
-  Simulator * simulator;
+  Simulator* simulator;
 
   std::string system_to_simulate = params.get("system");
 
-  if(system_to_simulate == "space") {
+  if (system_to_simulate == "space") {
     simulator = new SpaceSimulator();
   } else if (system_to_simulate == "spring") {
     simulator = new SpringSimulator();

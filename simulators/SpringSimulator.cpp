@@ -3,15 +3,17 @@
 //
 
 #include "SpringSimulator.h"
+#include "../integrators/Beeman.h"
+#include "../integrators/GearPredictorCorrector.h"
+#include "../integrators/Integrator.h"
+#include "../integrators/Verlet.h"
 #include "../observers/Observer.h"
 #include "../observers/OvitoObserver.h"
 #include "../types/Spring.h"
-#include "../integrators/Integrator.h"
-#include "../integrators/Beeman.h"
-#include "../integrators/GearPredictorCorrector.h"
-#include "../integrators/Verlet.h"
 
-void SpringSimulator::run(ParamsManager &params) {
+void
+SpringSimulator::run(ParamsManager& params)
+{
   fprintf(stderr, "Running SpringSimulator\n");
 
   /** Get parameters from manager */
@@ -21,12 +23,12 @@ void SpringSimulator::run(ParamsManager &params) {
   std::string integrator_name = params.get("integrator");
 
   /** Create integrator */
-  Integrator * integrator;
-  if(integrator_name == "beeman" || integrator_name == "") {
+  Integrator* integrator;
+  if (integrator_name == "beeman" || integrator_name == "") {
     integrator = new Beeman();
-  } else if(integrator_name == "gear_predictor_corrector") {
+  } else if (integrator_name == "gear_predictor_corrector") {
     integrator = new GearPredictorCorrector();
-  } else if(integrator_name == "verlet") {
+  } else if (integrator_name == "verlet") {
     integrator = new Verlet();
   } else {
     fprintf(stderr, "Unknown integrator!");
@@ -36,10 +38,10 @@ void SpringSimulator::run(ParamsManager &params) {
   /** Create spring */
   Spring spring = Spring(integrator);
 
-  if(ovito_output_filename != "") {
+  if (ovito_output_filename != "") {
     /** Create observers */
     Observer* ovito_observer =
-        new OvitoObserver(1.0/25.0, ovito_output_filename);
+      new OvitoObserver(1.0 / 25.0, ovito_output_filename);
     /** Add observers to space */
     spring.add_observer(ovito_observer);
   }
@@ -57,5 +59,4 @@ void SpringSimulator::run(ParamsManager &params) {
   }
 
   spring.end_simulation();
-
 }

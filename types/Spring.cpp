@@ -7,10 +7,11 @@
 #include "../forces/HookeForce.h"
 #include "../forces/SumForce.h"
 #include "../integrators/Beeman.h"
-#include "../integrators/Verlet.h"
 #include "../integrators/GearPredictorCorrector.h"
+#include "../integrators/Verlet.h"
 
-Spring::Spring(Integrator * integrator) : integrator(integrator)
+Spring::Spring(Integrator* integrator)
+  : integrator(integrator)
 {
   hooke_force = new HookeForce(1e4, mass);
   damping_force = new DampingForce(100, mass);

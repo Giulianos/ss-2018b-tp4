@@ -5,13 +5,12 @@
 #ifndef SS_TP4_SIMULATOR_H
 #define SS_TP4_SIMULATOR_H
 
-
 #include "../utils/ParamsManager.h"
 
-class Simulator {
+class Simulator
+{
 public:
-    virtual void run(ParamsManager& params) = 0;
+  virtual void run(ParamsManager& params) = 0;
 };
 
-
-#endif //SS_TP4_SIMULATOR_H
+#endif // SS_TP4_SIMULATOR_H

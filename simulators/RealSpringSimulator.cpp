@@ -4,13 +4,15 @@
 
 #include "RealSpringSimulator.h"
 #include "../observers/OvitoObserver.h"
-#include "../utils/LaunchSetup.h"
 #include "../types/RealSpring.h"
+#include "../utils/LaunchSetup.h"
 
-void RealSpringSimulator::run(ParamsManager &params) {
+void
+RealSpringSimulator::run(ParamsManager& params)
+{
   fprintf(stderr, "Running RealSpringSimulator\n");
 
-    /** Get parameters from manager */
+  /** Get parameters from manager */
   double dt = std::atof(params.get("dt").c_str());
   double total_time = std::atof(params.get("total_time").c_str());
   std::string ovito_output_filename = params.get("ovito_output_filename");
@@ -18,10 +20,10 @@ void RealSpringSimulator::run(ParamsManager &params) {
   /** Create spring */
   RealSpring spring = RealSpring();
 
-  if(ovito_output_filename != "") {
+  if (ovito_output_filename != "") {
     /** Create observers */
     Observer* ovito_observer =
-        new OvitoObserver(1.0/25.0, ovito_output_filename);
+      new OvitoObserver(1.0 / 25.0, ovito_output_filename);
     /** Add observers to space */
     spring.add_observer(ovito_observer);
   }

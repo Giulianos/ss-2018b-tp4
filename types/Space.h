@@ -7,9 +7,9 @@
 
 #include "../integrators/Beeman.h"
 #include "../integrators/Integrator.h"
+#include "../observers/Observer.h"
 #include "../utils/LaunchSetup.h"
 #include "Body.h"
-#include "../observers/Observer.h"
 #include <list>
 
 class Space
@@ -21,9 +21,9 @@ class Space
   double current_time;
 
 public:
-  Space(LaunchSetup& launch_setup, Integrator * integrator);
+  Space(LaunchSetup& launch_setup, Integrator* integrator);
   void simulate_step(double dt);
-  void add_observer(Observer * observer);
+  void add_observer(Observer* observer);
   void end_simulation();
 };
 

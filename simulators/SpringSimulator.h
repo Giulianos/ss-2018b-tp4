@@ -5,13 +5,12 @@
 #ifndef SS_TP4_SPRINGSIMULATOR_H
 #define SS_TP4_SPRINGSIMULATOR_H
 
-
 #include "Simulator.h"
 
-class SpringSimulator : public Simulator {
+class SpringSimulator : public Simulator
+{
 public:
-    void run(ParamsManager &params) override;
+  void run(ParamsManager& params) override;
 };
 
-
-#endif //SS_TP4_SPRINGSIMULATOR_H
+#endif // SS_TP4_SPRINGSIMULATOR_H
