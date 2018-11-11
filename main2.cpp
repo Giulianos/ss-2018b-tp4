@@ -6,8 +6,6 @@
 #include "types/Space.h"
 #include "utils/LaunchSetup.h"
 #include "utils/ParamsManager.h"
-#include "types/Spring.h"
-#include "types/RealSpring.h"
 #include <iostream>
 
 int
@@ -23,19 +21,28 @@ main(int argc, char* argv[])
   ParamsManager params(argv[1]);
 
   /** Get parameters from manager */
+  double voyager_altitude = std::atof(params.get("L").c_str());
+  double initial_speed = std::atof(params.get("v0").c_str());
   double dt = std::atof(params.get("dt").c_str());
   double total_time = std::atof(params.get("total_time").c_str());
+  std::string min_jupiter_dist_file = params.get("min_jupiter_dist_file");
   std::string ovito_output_filename = params.get("ovito_output_filename");
+
+  /** Create launch setup */
+  LaunchSetup launch_setup(initial_speed, voyager_altitude);
 
   /** Create observers */
   Observer* ovito_observer =
-    new OvitoObserver(1.0/25.0, ovito_output_filename);
+    new OvitoObserver(60 * 60 * 24, ovito_output_filename);
+  Observer* min_distance_observer =
+    new MinimumDistanceObserver(min_jupiter_dist_file);
 
-  /** Create spring */
-  RealSpring spring = RealSpring();
+  /** Create space */
+  Space space(launch_setup);
 
   /** Add observers to space */
-  spring.add_observer(ovito_observer);
+  space.add_observer(ovito_observer);
+  space.add_observer(min_distance_observer);
 
   /** Initialize counters */
   double time = 0;
@@ -45,11 +52,11 @@ main(int argc, char* argv[])
       progress = (int)(time * 100.0 / total_time);
       fprintf(stderr, "Progress: %d%%\n", progress);
     }
-    spring.simulate_step(dt);
+    space.simulate_step(dt);
     time += dt;
   }
 
-  spring.end_simulation();
+  space.end_simulation();
 
   return 0;
 }

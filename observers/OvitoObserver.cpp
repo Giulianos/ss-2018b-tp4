@@ -18,7 +18,7 @@ OvitoObserver::observe()
     last_observed_time = current_time;
 
     /** Print bodies quantity and empty comment line */
-    fprintf(out_file, "%lu\n\n", bodies->size());
+    fprintf(out_file, "%lu\n%lf\n", bodies->size(), current_time);
 
     for (Body body : *bodies) {
       fprintf(out_file,

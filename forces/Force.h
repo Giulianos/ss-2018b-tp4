@@ -15,6 +15,8 @@ public:
   virtual double get_force_y() = 0;
 
   virtual void evaluate() = 0;
+
+  virtual void evaluate(double x, double y, double vx, double vy) {};
 };
 
 #endif // SS_TP4_FORCE_H

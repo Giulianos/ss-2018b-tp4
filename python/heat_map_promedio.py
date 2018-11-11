@@ -12,9 +12,13 @@ def get_tuple_from_file(filename):
     filename_params = filename.split("_")
     v = filename_params[3]
     L = filename_params[4].split(".")[0]
-    distance = file.readline()
+    data_jupiter = file.readline()
+    data_saturn = file.readline()
+    data_jupiter = data_jupiter.split(";")
+    data_saturn = data_saturn.split(";")
     file.close()
-    return (float(v), float(L)*1E3, np.log10(float(distance)*np.sign(float(distance))), False if float(distance) < 0 else True)
+    average = float(data_saturn[0])
+    return (float(v), float(L)*1E3, np.log10(average))
 
 
 tuples = []
@@ -34,33 +38,27 @@ adding_altitudes = True
 velocities = []
 altitudes = []
 distances = []
-usefullness = []
 for tuple in tuples:
     if(tuple[0] != current_v):
         if(current_v != None):
             distances.append(temp_array_1)
-            usefullness.append(temp_array_2)
             adding_altitudes = False
         current_v = tuple[0]
         velocities.append(tuple[0])
         temp_array_1 = []
-        temp_array_2 = []
         temp_array_1.append(tuple[2])
-        temp_array_2.append(tuple[3])
     else:
         temp_array_1.append(tuple[2])
-        temp_array_2.append(tuple[3])
     if adding_altitudes:
-        altitudes.append("{:.2e}".format(tuple[1]))
+        altitudes.append(tuple[1])
 distances.append(temp_array_1)
-usefullness.append(temp_array_2)
 
 colormap_img = imread('python/colormap.png')
 colors_from_img = colormap_img[:, 0, :]
 my_cmap = LinearSegmentedColormap.from_list('my_cmap', colors_from_img, N=256)
 
 ax = plt.subplot(111)
-im = ax.imshow(distances, cmap=my_cmap)
+im = ax.imshow(distances, cmap=my_cmap, origin='lower')
 
 # create an axes on the right side of ax. The width of cax will be 5%
 # of ax and the padding between cax and ax will be fixed at 0.05 inch.
@@ -69,24 +67,15 @@ cax = divider.append_axes("right", size="5%", pad=0.1)
 
 plt.colorbar(im, cax=cax)
 
-ax.set_xticks(np.arange(len(distances)))
+ax.set_xticks(np.arange(len(altitudes)))
 ax.set_yticks(np.arange(len(velocities)))
 
-ax.set_xticklabels(altitudes)
-ax.set_yticklabels(velocities)
 
-plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+plt.setp(ax.get_xticklabels(), rotation=90, ha="right",
          rotation_mode="anchor")
 
-for col in range(len(velocities)):
-    for fil in range(len(altitudes)):
-        text = ax.text(fil, col, "OK" if usefullness[col][fil] else "",
-                       ha="center", va="center", color="k")
-
-ax.set_title("Distancia a Júpiter en función de $V_0$ y $L$", y=1.08, size=20)
-ax.text(x=4, y=13, s="$L$ [km]", size=20)
-ax.text(x=-2, y=4, s="$V_0$ [km/s]", size=20, rotation=90,
-        ha="right", rotation_mode="anchor")
+ax.set_title("Distancia a Saturno en función de $V_0$ y $L$",
+             y=1.08, size=20)
 plt.tight_layout()
 
 plt.show()

@@ -25,6 +25,8 @@ public:
   double get_force_y() override;
 
   void evaluate() override;
+
+  void evaluate(double x, double y, double vx, double vy) override;
 };
 
 #endif // SS_TP4_SUMFORCE_H

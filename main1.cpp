@@ -7,7 +7,6 @@
 #include "utils/LaunchSetup.h"
 #include "utils/ParamsManager.h"
 #include "types/Spring.h"
-#include "types/RealSpring.h"
 #include <iostream>
 
 int
@@ -32,7 +31,7 @@ main(int argc, char* argv[])
     new OvitoObserver(1.0/25.0, ovito_output_filename);
 
   /** Create spring */
-  RealSpring spring = RealSpring();
+  Spring spring = Spring();
 
   /** Add observers to space */
   spring.add_observer(ovito_observer);
