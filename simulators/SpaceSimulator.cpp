@@ -25,7 +25,7 @@ SpaceSimulator::run(ParamsManager& params)
   double initial_speed = std::atof(params.get("v0").c_str());
   double dt = std::atof(params.get("dt").c_str());
   double total_time = std::atof(params.get("total_time").c_str());
-  std::string min_jupiter_dist_file = params.get("min_jupiter_dist_file");
+  std::string min_jupiter_dist_file = params.get("min_dist_filename");
   std::string ovito_output_filename = params.get("ovito_output_filename");
   std::string integrator_name = params.get("integrator");
 
